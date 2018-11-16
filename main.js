@@ -1,3 +1,15 @@
+$(document).ready(function() {
+    $(".observers-item").unveil(200);
+
+    $(".observers-item").unveil(200, function() {
+        $(this).on('load', function() {
+            this.style.opacity = 1;
+        });
+    });
+});
+
+
+
 const images = document.querySelectorAll('.observers-item');
 
 observer = new IntersectionObserver((entries) => {
