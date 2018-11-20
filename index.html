@@ -12,22 +12,22 @@
 <div class="container">
     <h1>Intersection Observers</h1>
     <div class="box">
-        <h2>Funktion:</h2>
-        <p>Jedem Bild außerhalb des Sichtbaren Bereiches muss die Classe "<span class="red-text">obserbers-item</span>"
-            hinzugefügt werden.</p>
-
-        <div class="code-text"><p> < img src="..." class=<span class="red-text">"observers-item"</span> alt="..." ></p>
-        </div>
-        <p>
-            Bei erreichen der Classe "<span class="red-text">observers-item</span>" wird die Classe "<span
-                class="blue-text">show</span>" hinzugefügt. Jene hat die CSS Eigenschaft langsam in den Sichtbaren
-            Bereich zu fahren.
-        </p>
+        <h2>Funktion erklärt:</h2>
+        <p>Jedes Bild < img src="..." >
+            außerhalb des Viewports braucht die Klasse <span class="red-text">"observers-item"</span>. Beim scrollen und
+            durch das erscheinen des Bildes im Viewport,
+            bekommt die Klasse <span class="red-text">"observers-item"</span> die Klasse <span
+                    class="blue-text">"show"</span>. Durch die Klasse <span class="blue-text">"show"</span> wird über
+            einen CSS Befehl das
+            Bild smooth in den Sichtbaren Bereich gefahren.</p>
+    </div>
+    <div class="box">
+        <h2>CSS Code</h2>
         <div class="code-text">
             <p>
                 img.<span class="red-text">observers-item</span> {<br>
                 opacity: 0;<br>
-                transition: all .5s ease;<br>
+                transition: all .6s ease;<br>
                 visibility: hidden;<br>
                 transform: translateY(15%);<br>
                 }<br>
@@ -41,6 +41,46 @@
             </p>
         </div>
     </div>
+    <div class="box">
+        <h2>Funktion:</h2>
+
+        <p>
+            Die Grün markierte Zahl bestimmt ab welcher Distanz vom Viewport aus das Bild geladen wird. <br>In diesem Falle
+            wird das Bild
+            ab einer Distanz von 200px geladen.
+        </p>
+
+        <p>$(document).ready(function() {<br>
+            <span class="shift-1"></span>$("<span class="red-text">.observers-item</span>").unveil(<span
+                    class="green-text">200</span>);<br>
+
+            <span class="shift-1"></span>$(".<span class="red-text">observers-item</span>").unveil(<span
+                    class="green-text">200</span>, function() {<br>
+            <span class="shift-2"></span> $(this).on('load', function() {<br>
+            <span class="shift-3"></span>this.style.opacity = 1;<br>
+            <span class="shift-2"></span> });<br>
+            <span class="shift-1"></span> });<br>
+            });<br>
+        </p>
+
+
+        <p>const images = document.querySelectorAll('<span class="red-text">.observers-item</span>');</p>
+
+        <p>observer = new IntersectionObserver((entries) => {<br>
+            <span class="shift-1"></span>entries.forEach(entry => {<br>
+            <span class="shift-1"></span>if (entry.intersectionRatio > 0) {<br>
+            <span class="shift-1"></span>entry.target.classList.add('<span class="blue-text">show</span>');<br>
+            } else {<br>
+            <span class="shift-1"></span>entry.target.classList.remove('<span class="blue-text">show</span>');<br>
+            }<br>
+            });<br>
+            });<br>
+        </p>
+
+        <p>images.forEach(image => {<br>
+            <span class="shift-1"></span>observer.observe(image);<br>
+            });</p>
+    </div>
 </div>
 
 <section class="above-the-fold">
@@ -48,37 +88,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/placeholder.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/chatting-cups-dog-745045.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/brunette-clothes-fashion-58592.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/blurred-background-building-casual-1586483.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/placeholder.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -89,7 +99,30 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/beach-beautiful-beauty-1589867.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/chatting-cups-dog-745045.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/brunette-clothes-fashion-58592.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/blurred-background-building-casual-1586483.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -100,7 +133,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/asphalt-automobile-automotive-790176.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/beach-beautiful-beauty-1589867.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -111,7 +145,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/architecture-art-blue-sky-722014.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/asphalt-automobile-automotive-790176.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -122,7 +157,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/amazing-architecture-beautiful-1487674.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/architecture-art-blue-sky-722014.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -133,7 +169,20 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/alone-black-and-white-cool-wallpaper-764880.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/amazing-architecture-beautiful-1487674.jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/alone-black-and-white-cool-wallpaper-764880.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -155,7 +204,8 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/adult-back-view-beautiful-241558.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/adult-back-view-beautiful-241558.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -166,7 +216,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <video style=" height: 230px; object-fit: initial;" src="img/Pexels%20Videos%201460853.mp4" data-src="img/Pexels%20Videos%201460853.mp4" controls
+                    <video style=" height: 230px; object-fit: initial;" src="img/Pexels%20Videos%201460853.mp4"
+                           data-src="img/Pexels%20Videos%201460853.mp4" controls
                            loop muted preload="auto"></video>
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -177,17 +228,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/placeholder.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/chatting-cups-dog-745045.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/placeholder.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -198,7 +239,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/brunette-clothes-fashion-58592.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/chatting-cups-dog-745045.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -209,7 +251,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/blurred-background-building-casual-1586483.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/brunette-clothes-fashion-58592.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -220,7 +263,20 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/beach-beautiful-beauty-1589867.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/blurred-background-building-casual-1586483.jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/beach-beautiful-beauty-1589867.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -230,7 +286,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/asphalt-automobile-automotive-790176.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/asphalt-automobile-automotive-790176.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -241,7 +298,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/architecture-art-blue-sky-722014.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/architecture-art-blue-sky-722014.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -252,7 +310,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/amazing-architecture-beautiful-1487674.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/amazing-architecture-beautiful-1487674.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -263,7 +322,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/alone-black-and-white-cool-wallpaper-764880.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/alone-black-and-white-cool-wallpaper-764880.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -274,7 +334,8 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top observers-item" src="img/loading.gif" data-src="img/adult-back-view-beautiful-241558.jpg"
+                    <img class="card-img-top observers-item" src="img/loading.gif"
+                         data-src="img/adult-back-view-beautiful-241558.jpg"
                          alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of

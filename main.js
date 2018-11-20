@@ -1,3 +1,6 @@
+// Diese Funktion sorgt dafür dass die Bilder außerhalb des Viewports ausgeblendet werden,
+// erst wenn der Viewport 200px von der Klasse ".obsevers-item" entfernt ist, wird das Bild geladen.
+
 $(document).ready(function() {
     $(".observers-item").unveil(200);
 
@@ -9,6 +12,7 @@ $(document).ready(function() {
 });
 
 
+// Diese Funktion findet heraus ob sich die Klasse im Viewport befindet oder nicht.
 
 const images = document.querySelectorAll('.observers-item');
 
