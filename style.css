@@ -108,6 +108,16 @@ ul li:nth-child(even) {
     font-weight: 500;
 }
 
+.orange-text a {
+    color: #e67e22;
+    font-weight: 500;
+}
+
+.orange-text a:hover {
+    color: #e67e22;
+    text-decoration: none;
+}
+
 .code-text p {
     font-family: 'Cousine',sans-serif;
 }
